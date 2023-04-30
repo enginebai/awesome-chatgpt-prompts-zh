@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "awesome-chatgpt-prompts-zh"
+version = "0.1.0"
+description = ""
+authors = ["Engine Bai <enginebai@gmail.com>"]
+readme = "README.md"
+packages = [{include = "awesome_chatgpt_prompts_zh"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
