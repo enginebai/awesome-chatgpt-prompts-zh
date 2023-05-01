@@ -32,23 +32,20 @@ def read_file(file) -> dict:
 
         line = f.readline()
         while line:
-            print(line)
             try:
                 category, prompt = parse_line(line)
                 if category in prompt_map:
                     prompt_map[category].add(prompt)
                 else:
                     prompt_map[category] = {prompt}
-            except Exception as e:
-                print(e)
+            except:
+                pass
             line = f.readline()
         return prompt_map
 
 
 def parse_line(line) -> (str, str):
-    # ^\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$
-    # ^\|(.+?)\|(.+?)\|$
-    match = re.search(r'^\|(.+?)\|(.+?)\|$', line)
+    match = re.search(r'^\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$', line)
     if match:
         category = match.group(1).strip()
         prompt = match.group(2).strip()
@@ -56,13 +53,17 @@ def parse_line(line) -> (str, str):
 
 
 def print_key_values(map_to_print: dict):
-    for k, v in map_to_print.items():
-        if len(v) <= 1:
-            continue
-        print(k)
-        for terms in v:
-            print('\t{}'.format(terms))
+    with open('category.log', 'w') as f:
+        for k, v in map_to_print.items():
+            if len(v) <= 1:
+                continue
+            head = f'C:{k}, ({len(v)})'
+            print(head)
+            f.write(head + '\n')
+            for terms in v:
+                print('\t{}'.format(terms))
+                f.write(f'\t{terms}\n')
 
 
-# parse_all_question_files()
-print_key_values(read_file('question/508.md'))
+parse_all_question_files()
+# read_file('question/332.md')
